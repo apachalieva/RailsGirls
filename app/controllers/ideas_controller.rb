@@ -1,5 +1,4 @@
 class IdeasController < ApplicationController
-  before_action :set_idea, only: [:show, :edit, :update, :destroy]
 
   # GET /ideas
   # GET /ideas.json
@@ -10,6 +9,7 @@ class IdeasController < ApplicationController
   # GET /ideas/1
   # GET /ideas/1.json
   def show
+    set_idea
   end
 
   # GET /ideas/new
@@ -19,12 +19,13 @@ class IdeasController < ApplicationController
 
   # GET /ideas/1/edit
   def edit
+    @idea = current_user.ideas.find(params[:id])
   end
 
   # POST /ideas
   # POST /ideas.json
   def create
-    @idea = Idea.new(idea_params)
+    @idea = current_user.ideas.new(idea_params)
 
     respond_to do |format|
       if @idea.save
@@ -40,6 +41,7 @@ class IdeasController < ApplicationController
   # PATCH/PUT /ideas/1
   # PATCH/PUT /ideas/1.json
   def update
+    @idea = current_user.ideas.find(params[:id])
     respond_to do |format|
       if @idea.update(idea_params)
         format.html { redirect_to @idea, notice: 'Idea was successfully updated.' }
@@ -54,6 +56,7 @@ class IdeasController < ApplicationController
   # DELETE /ideas/1
   # DELETE /ideas/1.json
   def destroy
+    @idea = current_user.ideas.find(params[:id])
     @idea.destroy
     respond_to do |format|
       format.html { redirect_to ideas_url }
@@ -65,6 +68,8 @@ class IdeasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_idea
       @idea = Idea.find(params[:id])
+      @comments = @idea.comments.all
+      @comment = @idea.comments.build
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

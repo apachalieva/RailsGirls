@@ -1,7 +1,10 @@
 Railsgirls::Application.routes.draw do
 
+  devise_for :users
   get "pages/info"
-  resources :ideas
+  resources :ideas do 
+    resources :comments
+  end
   root :to => redirect('/ideas')
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
