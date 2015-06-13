@@ -1,0 +1,8 @@
+<h1>Pages#info</h1>
+<p>Some information about me:</p>
+<p>Name: Aleksandra Pachalieva</p>
+<p>
+Email: 
+<a href="mailto:apachalieva@gmail.com?Subject=RubyOnRails" target="_top">apachalieva@gmail.com</a>
+</p>
+<p>Find me in app/views/pages/info.html.erb</p>
