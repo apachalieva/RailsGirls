@@ -9,7 +9,9 @@
     <strong><%= comment.user.email %></strong>
     <br />
     <p><%= comment.body %></p>
-    <p><%= link_to 'Delete', idea_comment_path(@idea, comment), method: :delete, data: { confirm: 'Are you sure?' } %></p>
+    <% if current_user == comment.user || current_user == @idea.user %>
+    	<p><%= link_to 'Delete', idea_comment_path(@idea, comment), method: :delete, data: { confirm: 'Are you sure?' } %></p>
+    <% end %>
   </div>
 <% end %>
 <%= render 'comments/form' %>

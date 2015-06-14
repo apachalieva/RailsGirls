@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @idea.comments.new(comment_params)
     @comment.save
-    redirect_to idea_url(@idea)
+    redirect_to idea_url(@idea), notice: "Created Comment"
   end
 
   def update
@@ -34,8 +34,13 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy
-    redirect_to idea_url(@idea)
+    if current_user == @comment.user || current_user == @idea.user
+      @comment.destroy
+      notice = "Comment Destroyed"
+    else
+      notice = "You are not the right user!"
+    end
+    redirect_to idea_url(@idea), notice: notice
   end
 
   private
